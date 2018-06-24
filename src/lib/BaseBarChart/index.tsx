@@ -14,7 +14,7 @@ const BaseBarChart: React.SFC<BaseBarChart.Props> = (props) => {
         {
             props.
                 barGenerator(props.data, dimensions).
-                map((barStyles: BaseBarChart.BarStyles) => {
+                map((barStyles: BaseBarChart.BarStyle) => {
                     return (
                         <rect style={barStyles}></rect>
                     );

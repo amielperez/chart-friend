@@ -8,4 +8,8 @@ declare namespace Common {
         x: number,
         y: number,
     }
+
+    export interface HasColorScale {
+        colorScale: string, 
+    }
 }

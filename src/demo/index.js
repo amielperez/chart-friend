@@ -6,7 +6,6 @@ var props = {
     height: 400,
     width: 600,
     data: [10, 15, 5, 25, 20].map((i) => ({ id: `${i}`, value: i})),
-    orientation: 'horizontal',
 }
 
 const Index = (props) => (
@@ -15,7 +14,7 @@ const Index = (props) => (
             <BarChart {...props} />
         </div>
         <div>
-            <BarChart {...Object.assign(props, { orientation: 'vertical'})} />
+            <BarChart {...Object.assign(props, { orientation: 'vertical', colorScale: 'warm' })} />
         </div>
     </React.Fragment>
 );

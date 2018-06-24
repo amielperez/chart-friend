@@ -1,19 +1,31 @@
 import * as React from 'react';
 import BaseBarChart from '../BaseBarChart';
-import generateWithMutators from '../BaseBarChart/generateWithMutators';
-import horizontalMutatorFactory from './horizontalMutatorFactory';
-import verticalMutatorFactory from './verticalMutatorFactory';
+import generateWithStylers from '../BaseBarChart/generateWithStylers';
+import horizontalStylerFactory from './horizontalStylerFactory';
+import verticalStylerFactory from './verticalStylerFactory';
+import colorStylerFactory from './colorStylerFactory';
 
-const BarChart: React.SFC<BarChart.Props> = (props) => {
-    var mutatorFactories: BaseBarChart.BarStyleMutatorFactory[] = [];
-    mutatorFactories.push(props.orientation === 'horizontal' ? horizontalMutatorFactory : verticalMutatorFactory);
-    
-    var innerProps = Object.assign(props, { barGenerator: generateWithMutators(...mutatorFactories) });
+const BarChart: React.SFC<BarChart.Props> = (props: BarChart.Props) => {
+    var mutatorFactories: BaseBarChart.BarStylerFactory[] = [];
+    var barGenerator: BaseBarChart.BarGenerator;
+    var barGeneratorProxy: BaseBarChart.BarGeneratorProxy;
+
+    mutatorFactories.push(props.orientation === 'horizontal' ? horizontalStylerFactory : verticalStylerFactory);
+    mutatorFactories.push(colorStylerFactory);
+    barGenerator = generateWithStylers(...mutatorFactories)
+    barGeneratorProxy = () => barGenerator(props.data, props);
+
+    var innerProps = Object.assign(props, { barGenerator: barGeneratorProxy });
 
     return (
         <BaseBarChart {...innerProps}>
         </BaseBarChart>
     )
 }
+
+BarChart.defaultProps = {
+    orientation: 'horizontal',
+    colorScale: 'cool',
+};
 
 export default BarChart;

@@ -7,16 +7,18 @@ declare namespace BaseBarChart {
         value: number,
     }
     
-    interface BarStyles extends Common.Dimensions, Common.Position {
+    interface BarStyle
+        extends Common.Dimensions, Common.Position {
         fill?: string,
     }
 
     interface Props extends Common.Dimensions {
         data: DataPoint[],
-        barGenerator: BarGenerator,
+        barGenerator: BarGenerator & BarGeneratorProxy,
     }
 
-    type BarGenerator = (data: DataPoint[], ...additionalData: any[]) => BarStyles[];
-    type BarStyleMutator = (dataPoint: DataPoint, currentStyles: BarStyles | {}) => BarStyles;
-    type BarStyleMutatorFactory = (data: DataPoint[], ...additionalData: any[]) => BarStyleMutator;
+    type BarGenerator = (data: DataPoint[], ...additionalData: any[]) => BarStyle[];
+    type BarGeneratorProxy = () => BarStyle[];
+    type BarStyler = (dataPoint: DataPoint, currentStyle: BarStyle) => BarStyle;
+    type BarStylerFactory = (data: DataPoint[], ...additionalData: any[]) => BarStyler;
 }
