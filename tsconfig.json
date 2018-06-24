@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src/lib",
+        "outDir": "./dist/lib",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "lib": ["dom", "es5", "es6"],
+        "declaration": true,
+        "paths": {
+            "@lib/*": ["./lib/*"],
+        }
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
