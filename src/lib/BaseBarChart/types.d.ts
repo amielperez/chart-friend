@@ -14,11 +14,12 @@ declare namespace BaseBarChart {
 
     interface Props extends Common.Dimensions {
         data: DataPoint[],
-        barGenerator: BarGenerator & BarGeneratorProxy,
+        barGenerator: BarGenerator,
     }
 
-    type BarGenerator = (data: DataPoint[], ...additionalData: any[]) => BarStyle[];
-    type BarGeneratorProxy = () => BarStyle[];
+    type BarGenerator = (data?: DataPoint[], ...additionalData: any[]) => BarStyle[];
     type BarStyler = (dataPoint: DataPoint, currentStyle: BarStyle) => BarStyle;
     type BarStylerFactory = (data: DataPoint[], ...additionalData: any[]) => BarStyler;
+
+    type BarThickness = 'thinnest' | 'thinner' | 'normal';
 }

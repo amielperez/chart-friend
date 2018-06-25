@@ -8,14 +8,14 @@ import colorStylerFactory from './colorStylerFactory';
 const BarChart: React.SFC<BarChart.Props> = (props: BarChart.Props) => {
     var mutatorFactories: BaseBarChart.BarStylerFactory[] = [];
     var barGenerator: BaseBarChart.BarGenerator;
-    var barGeneratorProxy: BaseBarChart.BarGeneratorProxy;
+    var barGeneratorProxy: BaseBarChart.BarGenerator;
 
     mutatorFactories.push(props.orientation === 'horizontal' ? horizontalStylerFactory : verticalStylerFactory);
     mutatorFactories.push(colorStylerFactory);
     barGenerator = generateWithStylers(...mutatorFactories)
     barGeneratorProxy = () => barGenerator(props.data, props);
 
-    var innerProps = Object.assign(props, { barGenerator: barGeneratorProxy });
+    var innerProps = Object.assign({}, props, { barGenerator: barGeneratorProxy });
 
     return (
         <BaseBarChart {...innerProps}>
@@ -26,6 +26,7 @@ const BarChart: React.SFC<BarChart.Props> = (props: BarChart.Props) => {
 BarChart.defaultProps = {
     orientation: 'horizontal',
     colorScale: 'cool',
+    barThickness: 'normal',
 };
 
 export default BarChart;
