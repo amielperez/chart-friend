@@ -1,15 +1,20 @@
 declare namespace Common {
-    export interface Dimensions {
+    interface SimpleDataPair {
+        id: string,
+        value: any,
+    }
+
+    interface Dimensions {
         width: number,
         height: number,
     }
 
-    export interface Position {
+    interface Position {
         x: number,
         y: number,
     }
 
-    export interface HasColorScale {
+    interface HasColorScale {
         colorScale: string, 
     }
 }

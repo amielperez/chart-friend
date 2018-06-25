@@ -1,17 +1,17 @@
 /// <reference path="./types.d.ts" />
 
-const generateWithStylers = (...stylerFactories: BaseBarChart.BarStylerFactory[]): BaseBarChart.BarGenerator => {
-    return (data: BaseBarChart.DataPoint[], ...additionalData: any[]): BaseBarChart.BarStyle[] => {
-        return data.map((dataPoint: BaseBarChart.DataPoint) => {
-            var initialBarStyle: BaseBarChart.BarStyle = {
-                x: 0, y: 0, height: 0, width: 0,
+const generateWithStylers = (...propsMakerFactories: BaseBarChart.BarPropsMakerFactory[]): BaseBarChart.BarGenerator => {
+    return (data: BaseBarChart.DataPoint[], ...additionalData: any[]): BaseBarChart.BarProps[] => {
+        return data.map((dataPoint: BaseBarChart.DataPoint, dataPointOrdinality: number) => {
+            var initialBarStyle: BaseBarChart.BarProps = {
+                x: 0, y: 0, height: 0, width: 0, data: dataPoint,
             }
-            var stylers: BaseBarChart.BarStyler[] = 
-                stylerFactories.map((factory) => factory(data, ...additionalData));
+            var stylers: BaseBarChart.BarPropsMaker[] = 
+                propsMakerFactories.map((factory) => factory(data, ...additionalData));
 
             return stylers.
-                reduce((accumulatedStyles: BaseBarChart.BarStyle, styler: BaseBarChart.BarStyler) => {
-                    return styler(dataPoint, accumulatedStyles)
+                reduce((accumulatedStyles: BaseBarChart.BarProps, styler: BaseBarChart.BarPropsMaker) => {
+                    return styler(dataPoint, accumulatedStyles, dataPointOrdinality)
                 }, initialBarStyle);
         })
     }

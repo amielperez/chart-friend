@@ -1,7 +1,9 @@
 import BaseBarChart from './BaseBarChart';
-import BarChart from './BarChart';
+import SimpleBarChart from './SimpleBarChart';
+import Axis from './Axis';
 
 module.exports = {
+    Axis,
     BaseBarChart,
-    BarChart,
+    SimpleBarChart,
 };

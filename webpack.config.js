@@ -27,6 +27,10 @@ const config = {
                 loader: 'babel-loader!awesome-typescript-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.(css|sass|scss)$/,
+                loader: ['style-loader', 'css-loader', 'sass-loader'],
+            }
         ]
     },
     resolve: {
